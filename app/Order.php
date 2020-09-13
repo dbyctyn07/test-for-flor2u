@@ -9,6 +9,11 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeYesterdayNew($query)
+    {
+        return $query->where('status', 0)->whereDate('created_at', '=', date( "Ymd", strtotime( "-1 days" ) ));
+    }
+
     public function getTotalPriceAttribute()
     {
         $totalPrice = 0;
